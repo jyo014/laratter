@@ -37,7 +37,7 @@ class TweetController extends Controller
             'tweet' => 'required|max:255',
         ]);
         //DBにデータを保存する
-        $request->user()->tweets()->create($request->only('tweet'));
+         $request->user()->tweets()->create($request->only('tweet'));
 
         //一覧画面に移動する
         return redirect()->route('tweets.index');
