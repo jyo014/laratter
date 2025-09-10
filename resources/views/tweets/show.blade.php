@@ -1,7 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-      {{ __('Tweet詳細') }}
     </h2>
   </x-slot>
 
@@ -26,7 +25,6 @@
             </form>
           </div>
           @endif
-          {{-- 🔽 追加 --}}
           <div class="flex mt-4">
             @if ($tweet->liked->contains(auth()->id()))
             <form action="{{ route('tweets.dislike', $tweet) }}" method="POST">
@@ -41,7 +39,6 @@
             </form>
             @endif
           </div>
-          {{-- 🔼 ここまで --}}
         </div>
       </div>
     </div>

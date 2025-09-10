@@ -14,7 +14,6 @@
             <p class="text-gray-800 dark:text-gray-300">{{ $tweet->tweet }}</p>
             <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $tweet->user->name }}</p>
             <a href="{{ route('tweets.show', $tweet) }}" class="text-blue-500 hover:text-blue-700">詳細を見る</a>
-            {{-- 🔽 追加 --}}
             <div class="flex">
               @if ($tweet->liked->contains(auth()->id()))
               <form action="{{ route('tweets.dislike', $tweet) }}" method="POST">
@@ -29,7 +28,6 @@
               </form>
               @endif
             </div>
-            {{-- 🔼 ここまで --}}
           </div>
           @endforeach
         </div>
