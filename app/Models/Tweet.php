@@ -22,5 +22,11 @@ class Tweet extends Model
     return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+     // 🔽 1対多の関係
+  public function comments()
+  {
+    return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
+  }
+
 
 }
