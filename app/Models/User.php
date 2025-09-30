@@ -52,11 +52,22 @@ class User extends Authenticatable
 
     public function likes(){
         return $this->belongsToMany(Tweet::class)->withTimestamps();
+        return $this->hasMany(Like::class);
     }
 
      // 🔽 1対多の関係
-  public function comments()
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function follows()
   {
-    return $this->hasMany(Comment::class);
+    return $this->belongsToMany(User::class, 'follows', 'follow_id', 'follower_id');
+  }
+
+  public function followers()
+  {
+    return $this->belongsToMany(User::class, 'follows', 'follower_id', 'follow_id');
   }
 }

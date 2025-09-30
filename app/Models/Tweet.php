@@ -27,6 +27,4 @@ class Tweet extends Model
   {
     return $this->hasMany(Comment::class)->orderBy('created_at', 'desc');
   }
-
-
 }
