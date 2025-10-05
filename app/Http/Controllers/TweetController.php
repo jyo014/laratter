@@ -32,14 +32,25 @@ class TweetController extends Controller
      */
     public function store(Request $request)
     {
-        //送られてきたデータが正しいかどうか検証する
+        // バリデーション
         $request->validate([
             'tweet' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        //DBにデータを保存する
-         $request->user()->tweets()->create($request->only('tweet'));
 
-        //一覧画面に移動する
+        // データをまとめる
+        $data = $request->only('tweet');
+
+        // 画像がアップロードされた場合の処理
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('tweets', 'public');
+            $data['image_path'] = $path;
+        }
+
+        // ユーザーに紐づけてツイートを保存
+        $request->user()->tweets()->create($data);
+
+        // 一覧ページへリダイレクト
         return redirect()->route('tweets.index');
     }
 
@@ -66,14 +77,25 @@ class TweetController extends Controller
      */
     public function update(Request $request, Tweet $tweet)
     {
-        //
+        // バリデーション
         $request->validate([
-      'tweet' => 'required|max:255',
-    ]);
+            'tweet' => 'required|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    $tweet->update($request->only('tweet'));
+        // 更新データをまとめる
+        $data = $request->only('tweet');
 
-    return redirect()->route('tweets.show', $tweet);
+        // 画像がアップロードされている場合の処理
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('tweets', 'public');
+            $data['image_path'] = $path;
+        }
+
+        // ツイートを更新
+        $tweet->update($data);
+
+        return redirect()->route('tweets.show', $tweet);
     }
 
     /**

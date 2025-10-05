@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('tweet');
+            $table->string('tweet'); // ツイート本文
+            $table->string('image_path')->nullable(); // 画像パス（任意）
             $table->timestamps();
-
-
         });
     }
 

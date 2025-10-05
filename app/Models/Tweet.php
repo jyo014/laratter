@@ -11,7 +11,7 @@ class Tweet extends Model
     use HasFactory;
 
 
-    protected $fillable = ['tweet'];
+    protected $fillable = ['tweet','image_path'];
 
     //連携の設定　自分が多
     public function user(){
