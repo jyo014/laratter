@@ -46,6 +46,11 @@
           @foreach ($tweets as $tweet)
           <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
             <p class="text-gray-800 dark:text-gray-300">{{ $tweet->tweet }}</p>
+            @if ($tweet->image_path)
+              <div class="my-2">
+                <img src="{{ asset('storage/' . $tweet->image_path) }}" alt="ツイート画像" class="max-w-xs rounded">
+              </div>
+            @endif
             <a href="{{ route('profile.show', $tweet->user) }}">
               <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $tweet->user->name }}</p>
             </a>

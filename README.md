@@ -33,11 +33,11 @@
      ```
    - `<form>` タグに `enctype="multipart/form-data"` を追加
    - 一覧画面 (`tweets/index.blade.php`) で画像を表示しta
-     ```blade
+     blade
      @if ($tweet->image_path)
        <img src="{{ asset('storage/' . $tweet->image_path) }}" alt="ツイート画像">
      @endif
-     ```
+     
 
 5. **ストレージリンクの作成**
    
@@ -49,3 +49,33 @@
    - ツイート作成画面で画像を添付して投稿できるようにしてみた
    - 一覧画面で画像がちゃんと表示されるのを確認した
    - 自分のプロフィールの方には機能をまだつけていないから、そ　っちにもつけれるようにする
+
+7. **ツイート詳細に画像を表示できるようにした**
+   - `tweets/show.blade.php` に画像表示処理を追加。
+   - ツイート本文の下に以下を追加して、画像がある場合のみ表示されるようにした。
+     blade
+     @if ($tweet->image_path)
+       <div class="my-4">
+         <img src="{{ asset('storage/' . $tweet->image_path) }}" alt="ツイート画像" class="max-w-md rounded shadow">
+       </div>
+     @endif
+     
+   - これでツイートの詳細ページにも画像が表示できるようになった。
+
+8. **User詳細ページに画像を表示できるようにした**
+   - `profile/show.blade.php` にも同じように追加して、ユーザーのツイート部分で画像を表示できるようにした。
+     blade
+     @if ($tweet->image_path)
+       <div class="my-2">
+         <img src="{{ asset('storage/' . $tweet->image_path) }}" alt="ツイート画像" class="max-w-xs rounded">
+       </div>
+     @endif
+     
+   - これでユーザー詳細ページ（プロフィール）でも、画像付きツイートが見られるようになった。
+
+   ***確認***
+   自分のプロフィールのところに画像を表示できるようになった。
+   またtweetの画面だけでなく詳細画面にも画像を送信できるようになった。
+
+   ***付け加えた機能について***
+   まず元々あったツイート機能に画像も共にツイートできる機能の付け加えた。またツイートの詳細を開くとそこにも画像が表示できるようになった。そして自分のプロフィールのところのツイートにも表示できるようになった。

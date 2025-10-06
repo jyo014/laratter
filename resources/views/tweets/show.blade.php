@@ -11,6 +11,11 @@
         <div class="p-6 text-gray-900 dark:text-gray-100">
           <a href="{{ route('tweets.index') }}" class="text-blue-500 hover:text-blue-700 mr-2">一覧に戻る</a>
           <p class="text-gray-800 dark:text-gray-300 text-lg">{{ $tweet->tweet }}</p>
+          @if ($tweet->image_path)
+            <div class="my-4">
+              <img src="{{ asset('storage/' . $tweet->image_path) }}" alt="ツイート画像" class="max-w-md rounded shadow">
+            </div>
+          @endif
           <p class="text-gray-600 dark:text-gray-400 text-sm">投稿者: {{ $tweet->user->name }}</p>
           <div class="text-gray-600 dark:text-gray-400 text-sm">
             <p>作成日時: {{ $tweet->created_at->format('Y-m-d H:i') }}</p>
